@@ -51,7 +51,7 @@ namespace Obligatorio_Programacion.Service
                 Tabla = tabla,
                 IdRegistro = idRegistro,
                 DescripcionCambio = $"Creación de registro en {tabla}",
-                FechaHora = DateTime.Now,
+                FechaHora = DateTime.UtcNow,
                 DatosAnteriores = string.Empty,
                 DatosNuevos = JsonSerializer.Serialize(datosNuevos),
                 DireccionIP = direccionIP ?? string.Empty
@@ -70,7 +70,7 @@ namespace Obligatorio_Programacion.Service
                 Tabla = tabla,
                 IdRegistro = idRegistro,
                 DescripcionCambio = $"Modificación de registro en {tabla}",
-                FechaHora = DateTime.Now,
+                FechaHora = DateTime.UtcNow,
                 DatosAnteriores = JsonSerializer.Serialize(datosAnteriores),
                 DatosNuevos = JsonSerializer.Serialize(datosNuevos),
                 DireccionIP = direccionIP ?? string.Empty
@@ -89,7 +89,7 @@ namespace Obligatorio_Programacion.Service
                 Tabla = tabla,
                 IdRegistro = idRegistro,
                 DescripcionCambio = $"Eliminación de registro en {tabla}",
-                FechaHora = DateTime.Now,
+                FechaHora = DateTime.UtcNow,
                 DatosAnteriores = JsonSerializer.Serialize(datosAnteriores),
                 DatosNuevos = string.Empty,
                 DireccionIP = direccionIP ?? string.Empty

@@ -717,6 +717,8 @@ async function guardarCliente(event) {
         limpiarFormularioCliente();
         await cargarTodo();
     } catch (error) {
+        console.error("Error al guardar cliente:", error);
+        alert("Error al guardar cliente: " + error.message);
     }
 }
 
