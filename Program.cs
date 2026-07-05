@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Obligatorio_Programacion.Data;
+using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Repository;
 using Obligatorio_Programacion.Service;
 using System.Text.Json.Serialization;
@@ -46,6 +47,47 @@ builder.Services.AddScoped<AuditoriaService>();
 builder.Services.AddScoped<AlertaService>();
 
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    db.Database.Migrate();
+
+    if (!db.Oficios.Any())
+    {
+        db.Oficios.AddRange(
+            new Oficio
+            {
+                NombreOficio = "Albañil",
+                descripcionOficio = "Trabajos generales de construcción"
+            },
+            new Oficio
+            {
+                NombreOficio = "Electricista",
+                descripcionOficio = "Instalaciones y reparaciones eléctricas"
+            },
+            new Oficio
+            {
+                NombreOficio = "Sanitario",
+                descripcionOficio = "Trabajos de cañería, baños y sanitaria"
+            },
+            new Oficio
+            {
+                NombreOficio = "Pintor",
+                descripcionOficio = "Pintura interior y exterior"
+            },
+            new Oficio
+            {
+                NombreOficio = "Carpintero",
+                descripcionOficio = "Trabajos en madera y estructuras"
+            }
+        );
+
+        db.SaveChanges();
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
