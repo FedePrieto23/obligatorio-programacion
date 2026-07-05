@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es" data-color-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de gestión profesional de obras para Pages & Company">
+    <meta name="color-scheme" content="light">
+    <title>Pages & Company - Gestión de Obras</title>
+    <link rel="stylesheet" href="/css/site.css?v=22">
+</head>
+<body>
+    <!-- Skip to main content link para accesibilidad -->
+    <a href="#main-content" class="skip-to-main">Saltar al contenido principal</a>
+
+    <section id="authView" class="auth-shell" aria-label="Sección de autenticación">
+        <div class="auth-brand">
+            <div class="auth-logo" role="img" aria-label="Logo de Pages & Company">Pages <span>& Company</span></div>
+            <h1>Gestión profesional de obras</h1>
+        </div>
+
+        <div class="auth-card" id="loginCard" role="main" aria-label="Formulario de inicio de sesión">
+            <h2>Iniciar sesión</h2>
+            <form id="formLogin" aria-label="Login">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" autocomplete="email" required aria-required="true" aria-label="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input id="loginPassword" type="password" autocomplete="current-password" required aria-required="true" aria-label="Contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" aria-label="Enviar formulario de login">Entrar</button>
+            </form>
+            <div id="loginMessage" class="auth-message" style="display:none; margin-top:12px; padding:10px; border-radius:4px; font-size:14px; text-align:center;"></div>
+            <p class="auth-help">¿No tenés cuenta? <button class="link-button" id="mostrarRegistro" type="button" aria-label="Ir al registro">Registrate</button></p>
+        </div>
+
+        <div class="auth-card oculto" id="registroCard" role="main" aria-label="Formulario de registro">
+            <h2>Crear cuenta</h2>
+            <form id="formRegistro" aria-label="Registro">
+                <div class="form-group">
+                    <label for="registroNombre">Nombre y apellido</label>
+                    <input id="registroNombre" type="text" autocomplete="name" required aria-required="true" aria-label="Nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="registroEmail">Email</label>
+                    <input id="registroEmail" type="email" autocomplete="email" required aria-required="true" aria-label="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <label for="registroPassword">Contraseña</label>
+                    <input id="registroPassword" type="password" autocomplete="new-password" required aria-required="true" aria-label="Nueva contraseña">
+                    <small class="form-help">Mínimo 8 caracteres, con mayúsculas y números recomendados</small>
+                </div>
+                <div class="form-group">
+                    <label for="registroRol">Tipo de usuario</label>
+                    <select id="registroRol" required aria-required="true" aria-label="Seleccionar tipo de usuario">
+                        <option value="">Seleccionar...</option>
+                        <option value="Empleado">Empleado</option>
+                        <option value="TrabajadorTemporal">Trabajador temporal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registroOficio">Oficio</label>
+                    <select id="registroOficio" required aria-required="true" aria-label="Seleccionar oficio"></select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" aria-label="Crear nueva cuenta">Crear cuenta</button>
+            </form>
+            <p class="auth-help">¿Ya tenés cuenta? <button class="link-button" id="mostrarLogin" type="button" aria-label="Volver a login">Iniciar sesión</button></p>
+        </div>
+    </section>
+
+    <div id="appView" class="layout oculto">
+        <aside class="sidebar" role="navigation" aria-label="Menú de navegación principal">
+            <div class="logo" role="img" aria-label="Logo de Pages & Company">Pages <span>& Company</span></div>
+            <nav class="menu" aria-label="Menú principal">
+                <a class="activo" href="#" data-section="inicio" aria-current="page" aria-label="Panel principal">Panel</a>
+                <a href="#" data-section="clientes" aria-label="Gestión de clientes">Clientes</a>
+                <a href="#" data-section="obras" aria-label="Gestión de obras">Obras</a>
+                <a href="#" data-section="asignaciones" aria-label="Personal de obra">Personal de obra</a>
+                <a href="#" data-section="materiales" aria-label="Gestión de materiales">Materiales</a>
+                <a href="#" data-section="gastos" aria-label="Registro de gastos">Gastos</a>
+                <a href="#" data-section="alertas" class="admin-only" aria-label="Alertas de stock">⚠️ Alertas</a>
+                <a href="#" data-section="auditoria" class="admin-only" aria-label="Historial de cambios">📋 Auditoría</a>
+            </nav>
+        </aside>
+
+        <main class="contenido" id="main-content" role="main">
+            <header class="header" role="banner">
+                <div>
+                    <h1 id="tituloPagina">Panel principal</h1>
+                    <p id="subtituloPagina">Gestión de obras, materiales, costos y personal.</p>
+                </div>
+
+                <div class="user-box">
+                    <div class="user-avatar" id="userAvatar" role="img" aria-label="Avatar de usuario">A</div>
+                    <div>
+                        <strong id="usuarioActualNombre">Administrador</strong>
+                        <span id="usuarioActualRol">Administrador</span>
+                    </div>
+                    <button id="btnCerrarSesion" class="btn btn-light" type="button" aria-label="Cerrar sesión">Salir</button>
+                </div>
+            </header>
+
+            <div id="mensajeRol" class="alert alert-warning oculto" role="alert" aria-live="polite" aria-label="Alerta de permisos limitados">
+                Modo limitado: este usuario puede consultar información, pero no puede crear, editar ni eliminar datos administrativos.
+            </div>
+
+            <section id="seccion-inicio" class="page-section activa">
+                <section class="grid dashboard-grid">
+                    <div class="stat"><div class="titulo">Obras activas</div><div class="numero" id="statObras">0</div></div>
+                    <div class="stat"><div class="titulo">Clientes</div><div class="numero" id="statClientes">0</div></div>
+                    <div class="stat"><div class="titulo">Materiales en obra</div><div class="numero" id="statMateriales">0</div></div>
+                    <div class="stat"><div class="titulo">Gastos registrados</div><div class="numero" id="statGastos">0</div></div>
+                </section>
+
+                <section class="card panel-pro">
+                    <div class="card-title-row">
+                        <div>
+                            <h2>Consulta rápida</h2>
+                            <p class="texto-suave">Filtrá por cliente u obra para ver relaciones, costos y personal asignado.</p>
+                        </div>
+                    </div>
+                    <div class="form-grid compact-grid">
+                        <div class="form-group">
+                            <label>Cliente</label>
+                            <select id="filtroPanelCliente"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Obra</label>
+                            <select id="filtroPanelObra"></select>
+                        </div>
+                    </div>
+                    <div id="resultadoPanelFiltros" class="insight-grid"></div>
+                </section>
+
+                <section class="quick-grid">
+                    <button class="quick-card" data-go="obras" type="button"><strong>Obras</strong><span>Ver estados, clientes y costos totales.</span></button>
+                    <button class="quick-card" data-go="asignaciones" type="button"><strong>Personal de obra</strong><span>Asignar empleados y consultar quién trabaja en cada obra.</span></button>
+                    <button class="quick-card" data-go="materiales" type="button"><strong>Materiales</strong><span>Asignar materiales a una obra.</span></button>
+                    <button class="quick-card" data-go="gastos" type="button"><strong>Gastos</strong><span>Registrar gastos directamente sobre una obra.</span></button>
+                </section>
+            </section>
+
+            <section id="seccion-clientes" class="page-section">
+                <section class="card">
+                    <div class="card-title-row">
+                        <div><h2>Clientes</h2><p class="texto-suave">Listado de clientes registrados y cantidad de obras asociadas.</p></div>
+                        <button class="btn btn-secondary admin-only" onclick="limpiarFormularioCliente()" type="button">Nuevo cliente</button>
+                    </div>
+                    <div class="buscador"><input id="buscarCliente" type="text" placeholder="Buscar por nombre, documento o email..."></div>
+                    <div class="table-container"><table><thead><tr><th>Nombre</th><th>Apellido</th><th>Documento</th><th>Email</th><th>Obras</th><th>Acciones</th></tr></thead><tbody id="tablaClientes"></tbody></table></div>
+                </section>
+
+                <section class="card">
+                    <div class="card-title-row">
+                        <div><h2>Obras por cliente</h2><p class="texto-suave">Seleccioná un cliente para ver todas sus obras registradas.</p></div>
+                    </div>
+                    <div class="form-grid compact-grid">
+                        <div class="form-group"><label>Cliente</label><select id="clienteDetalleObras"></select></div>
+                    </div>
+                    <div id="detalleObrasCliente" class="mini-list"></div>
+                </section>
+
+                <section class="card admin-only">
+                    <h2 id="tituloFormCliente">Registrar cliente</h2>
+                    <form id="formCliente">
+                        <input id="idCliente" type="hidden">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Nombre</label><input id="nombreCliente" type="text" required></div>
+                            <div class="form-group"><label>Apellido</label><input id="apellidoCliente" type="text" required></div>
+                            <div class="form-group"><label>Documento</label><input id="documento" type="text" required></div>
+                            <div class="form-group"><label>Email</label><input id="emailCliente" type="email" required></div>
+                            <div class="form-group"><label>Dirección</label><input id="direccionCliente" type="text" required></div>
+                        </div>
+                        <div class="form-actions"><button type="reset" class="btn btn-light" onclick="limpiarFormularioCliente()">Limpiar</button><button type="submit" class="btn btn-primary">Guardar cliente</button></div>
+                    </form>
+                </section>
+            </section>
+
+            <section id="seccion-obras" class="page-section">
+                <section class="card">
+                    <div class="card-title-row"><div><h2>Obras</h2><p class="texto-suave">Los costos separan gastos generales y materiales comprados/usados.</p></div><button class="btn btn-secondary admin-only" onclick="limpiarFormularioObra()" type="button">Nueva obra</button></div>
+                    <div class="filters-row">
+                        <input id="buscarObra" type="text" placeholder="Buscar obra o cliente...">
+                        <select id="filtroEstadoObra"><option value="">Todos los estados</option><option>Activa</option><option>En proceso</option><option>Finalizada</option><option>Pausada</option></select>
+                    </div>
+                    <div class="table-container"><table><thead><tr><th>Nombre</th><th>Cliente</th><th>Estado</th><th>Presupuesto</th><th>Gastos</th><th>Materiales</th><th>Total</th><th>Personal</th><th>Acciones</th></tr></thead><tbody id="tablaObras"></tbody></table></div>
+                </section>
+
+                <section class="card admin-only">
+                    <h2 id="tituloFormObra">Registrar obra</h2>
+                    <form id="formObra">
+                        <input id="idObra" type="hidden">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Nombre de obra</label><input id="nombreObra" type="text" required></div>
+                            <div class="form-group"><label>Cliente</label><select id="idClienteObra" required></select></div>
+                            <div class="form-group"><label>Presupuesto</label><input id="presupuesto" type="number" step="0.01" required></div>
+                            <div class="form-group"><label>Dirección</label><input id="direccionObra" type="text" required></div>
+                            <div class="form-group"><label>Estado</label><select id="estadoObra"><option>Activa</option><option>En proceso</option><option>Finalizada</option><option>Pausada</option></select></div>
+                            <div class="form-group"><label>Fecha inicio</label><input id="fechaInicioObra" type="date" required></div>
+                            <div class="form-group"><label>Fecha fin</label><input id="fechaFinObra" type="date" required></div>
+                        </div>
+                        <div class="form-actions"><button type="reset" class="btn btn-light" onclick="limpiarFormularioObra()">Limpiar</button><button type="submit" class="btn btn-primary">Guardar obra</button></div>
+                    </form>
+                </section>
+            </section>
+
+            <section id="seccion-asignaciones" class="page-section">
+                <section class="card">
+                    <div class="card-title-row"><div><h2>Personal de obra</h2><p class="texto-suave">Asigná empleados registrados a una obra y consultá quién trabaja en cada proyecto.</p></div></div>
+                    <div class="form-grid compact-grid">
+                        <div class="form-group"><label>Obra</label><select id="idObraAsignacion" required></select></div>
+                    </div>
+                    <div class="assignment-layout">
+                        <div class="assignment-panel admin-only">
+                            <h3>Empleados disponibles</h3>
+                            <div class="filters-row stacked-mobile">
+                                <input id="buscarEmpleadoAsignacion" type="text" placeholder="Buscar por nombre o email...">
+                                <select id="filtroOficioAsignacion"><option value="">Todos los oficios</option></select>
+                                <select id="filtroRolAsignacion"><option value="">Todos los tipos</option><option value="Empleado">Empleado</option><option value="TrabajadorTemporal">Trabajador temporal</option></select>
+                            </div>
+                            <div id="listaEmpleadosAsignacion" class="employee-list"></div>
+                        </div>
+                        <div class="assignment-panel">
+                            <h3>Asignados a la obra</h3>
+                            <div id="listaAsignadosObra" class="employee-list"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section id="seccion-materiales" class="page-section">
+                <section class="card">
+                    <div class="card-title-row"><div><h2>Materiales por obra</h2><p class="texto-suave">Cada material queda asociado a una obra. Los faltantes no suman al costo.</p></div><button class="btn btn-secondary admin-only" onclick="limpiarFormularioMaterial()" type="button">Nuevo material</button></div>
+                    <div class="table-container"><table><thead><tr><th>Material</th><th>Obra</th><th>Unidad</th><th>Cantidad</th><th>Precio unitario</th><th>Costo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="tablaMateriales"></tbody></table></div>
+                </section>
+                <section class="card admin-only">
+                    <h2 id="tituloFormMaterial">Registrar material</h2>
+                    <form id="formMaterial">
+                        <input id="idMaterial" type="hidden">
+                        <input id="idMaterialObra" type="hidden">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Obra destino</label><select id="idObraMaterial" required></select></div>
+                            <div class="form-group"><label>Nombre</label><input id="nombreMaterial" type="text" required></div>
+                            <div class="form-group"><label>Unidad de medida</label><input id="unidadMedida" type="text" placeholder="Ej: bolsa, kg, m²" required></div>
+                            <div class="form-group"><label>Cantidad para la obra</label><input id="cantidadMaterialObra" type="number" min="1" step="1" required></div>
+                            <div class="form-group"><label>Precio unitario</label><input id="precioUnitarioMaterial" type="number" step="0.01" required></div>
+                            <div class="form-group"><label>Estado en la obra</label><select id="estadoMaterial"><option>Disponible</option><option>Comprado</option><option>Utilizado</option><option>Faltante</option></select></div>
+                        </div>
+                        <div class="form-actions"><button type="reset" class="btn btn-light" onclick="limpiarFormularioMaterial()">Limpiar</button><button type="submit" class="btn btn-primary">Guardar material</button></div>
+                    </form>
+                </section>
+            </section>
+
+            <section id="seccion-gastos" class="page-section">
+                <section class="card">
+                    <div class="card-title-row"><div><h2>Gastos</h2><p class="texto-suave">Si elegís Materiales, el monto se completa con los materiales comprados/usados de la obra.</p></div><button class="btn btn-secondary admin-only" onclick="limpiarFormularioGasto()" type="button">Nuevo gasto</button></div>
+                    <div class="table-container"><table><thead><tr><th>Descripción</th><th>Monto</th><th>Fecha</th><th>Obra</th><th>Tipo</th><th>Acciones</th></tr></thead><tbody id="tablaGastos"></tbody></table></div>
+                </section>
+                <section class="card admin-only">
+                    <h2 id="tituloFormGasto">Registrar gasto</h2>
+                    <form id="formGasto">
+                        <input id="idGasto" type="hidden">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Obra</label><select id="idObraGasto" required></select><small id="resumenObraGasto" class="form-help">Seleccioná una obra para ver su costo actual.</small></div>
+                            <div class="form-group"><label>Tipo de gasto</label><select id="idTipoGasto" required></select></div>
+                            <div class="form-group"><label>Descripción</label><input id="descGasto" type="text" required></div>
+                            <div class="form-group"><label>Monto</label><input id="montoGasto" type="number" step="0.01" required></div>
+                            <div class="form-group"><label>Comprobante</label><input id="comprobanteGasto" type="text"></div>
+                            <div class="form-group"><label>Fecha</label><input id="fechaGasto" type="date" required></div>
+                        </div>
+                        <div class="form-actions"><button type="reset" class="btn btn-light" onclick="limpiarFormularioGasto()">Limpiar</button><button type="submit" class="btn btn-primary">Guardar gasto</button></div>
+                    </form>
+                </section>
+            </section>
+
+            <section id="seccion-alertas" class="page-section admin-only">
+                <section class="card">
+                    <div class="card-title-row">
+                        <div>
+                            <h2>⚠️ Alertas de Stock</h2>
+                            <p class="texto-suave">Control de materiales con stock bajo o agotado en obras.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="verificarAlertas()" type="button">Verificar ahora</button>
+                    </div>
+                    <div class="stat">
+                        <div class="titulo">Alertas activas</div>
+                        <div class="numero" id="countAlertasActivas">0</div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Obra</th>
+                                    <th>Material</th>
+                                    <th>Tipo</th>
+                                    <th>Cantidad actual</th>
+                                    <th>Mínimo</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaAlertas"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section id="seccion-auditoria" class="page-section admin-only">
+                <section class="card">
+                    <div class="card-title-row">
+                        <div>
+                            <h2>📋 Historial y Auditoría</h2>
+                            <p class="texto-suave">Registro de todas las acciones realizadas en el sistema: creaciones, modificaciones y eliminaciones.</p>
+                        </div>
+                    </div>
+                    <div class="filters-row">
+                        <select id="filtroTablaAuditoria">
+                            <option value="">Todas las tablas</option>
+                            <option value="Usuario">Usuarios</option>
+                            <option value="Obra">Obras</option>
+                            <option value="MaterialObra">Materiales en Obra</option>
+                            <option value="Gasto">Gastos</option>
+                            <option value="Asignacion">Asignaciones</option>
+                            <option value="Cliente">Clientes</option>
+                        </select>
+                        <select id="filtroAccionAuditoria">
+                            <option value="">Todas las acciones</option>
+                            <option value="Create">Creación</option>
+                            <option value="Update">Modificación</option>
+                            <option value="Delete">Eliminación</option>
+                        </select>
+                        <button id="btnRefrescarAuditoria" class="btn btn-primary" style="margin-left: auto;">🔄 Actualizar</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tabla</th>
+                                    <th>Acción</th>
+                                    <th>Descripción</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha/Hora</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaAuditoria"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script src="/js/site.js?v=21"></script>
+</body>
+</html>
