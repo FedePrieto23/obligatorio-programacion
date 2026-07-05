@@ -43,11 +43,153 @@ function mostrarMensajeLogin(mensaje, tipo = "error") {
     }
 }
 
+// ================= MODAL PERSONALIZADO =================
+function mostrarModalAlerta(titulo, mensaje) {
+    return new Promise((resolve) => {
+        const overlay = document.getElementById("modalOverlay");
+        const titleEl = document.getElementById("modalTitle");
+        const bodyEl = document.getElementById("modalBody");
+        const confirmBtn = document.getElementById("modalConfirmBtn");
+        const cancelBtn = document.getElementById("modalCancelBtn");
+
+        titleEl.textContent = titulo;
+        bodyEl.innerHTML = `<p>${mensaje}</p>`;
+        confirmBtn.style.display = "flex";
+        cancelBtn.style.display = "none";
+        confirmBtn.textContent = "Aceptar";
+
+        confirmBtn.onclick = () => {
+            cerrarModal();
+            resolve(true);
+        };
+
+        overlay.style.display = "flex";
+    });
+}
+
+function mostrarModalConfirmacion(titulo, mensaje) {
+    return new Promise((resolve) => {
+        const overlay = document.getElementById("modalOverlay");
+        const titleEl = document.getElementById("modalTitle");
+        const bodyEl = document.getElementById("modalBody");
+        const confirmBtn = document.getElementById("modalConfirmBtn");
+        const cancelBtn = document.getElementById("modalCancelBtn");
+
+        titleEl.textContent = titulo;
+        bodyEl.innerHTML = `<p>${mensaje}</p>`;
+        confirmBtn.style.display = "flex";
+        cancelBtn.style.display = "flex";
+        confirmBtn.textContent = "Confirmar";
+
+        confirmBtn.onclick = () => {
+            cerrarModal();
+            resolve(true);
+        };
+
+        cancelBtn.onclick = () => {
+            cerrarModal();
+            resolve(false);
+        };
+
+        overlay.style.display = "flex";
+    });
+}
+
+function mostrarModalExito(titulo, mensaje) {
+    return mostrarModalAlerta(titulo, mensaje);
+}
+
+function mostrarModalError(titulo, mensaje) {
+    return mostrarModalAlerta(titulo, mensaje);
+}
+
+function cerrarModal() {
+    const overlay = document.getElementById("modalOverlay");
+    const confirmBtn = document.getElementById("modalConfirmBtn");
+    const cancelBtn = document.getElementById("modalCancelBtn");
+
+    overlay.style.display = "none";
+    confirmBtn.onclick = null;
+    cancelBtn.onclick = null;
+}
+
+// Cerrar modal al presionar Escape o hacer clic fuera
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        const overlay = document.getElementById("modalOverlay");
+        if (overlay && overlay.style.display === "flex") {
+            cerrarModal();
+        }
+    }
+});
+
+// Cerrar modal al hacer clic en el overlay (fuera del contenedor)
+document.addEventListener("click", (e) => {
+    const overlay = document.getElementById("modalOverlay");
+    if (overlay && overlay.style.display === "flex" && e.target === overlay) {
+        cerrarModal();
+    }
+});
+
+// ================= SISTEMA DE TOASTS/NOTIFICACIONES =================
+function mostrarToast(mensaje, tipo = "info", duracion = 4000) {
+    const container = document.getElementById("toastContainer");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = `toast ${tipo}`;
+
+    const iconos = {
+        success: "✓",
+        error: "✕",
+        info: "ⓘ",
+        warning: "⚠"
+    };
+
+    toast.innerHTML = `
+        <div class="toast-icon">${iconos[tipo] || "•"}</div>
+        <div class="toast-message">${mensaje}</div>
+        <button class="toast-close" onclick="this.parentElement.remove()" aria-label="Cerrar notificación">×</button>
+        <div class="toast-progress"></div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remover después de la duración
+    if (duracion > 0) {
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.classList.add("removing");
+                setTimeout(() => toast.remove(), 300);
+            }
+        }, duracion);
+    }
+
+    return toast;
+}
+
+function mostrarToastExito(mensaje, duracion = 4000) {
+    return mostrarToast(mensaje, "success", duracion);
+}
+
+function mostrarToastError(mensaje, duracion = 4000) {
+    return mostrarToast(mensaje, "error", duracion);
+}
+
+function mostrarToastInfo(mensaje, duracion = 4000) {
+    return mostrarToast(mensaje, "info", duracion);
+}
+
+function mostrarToastAdvertencia(mensaje, duracion = 4000) {
+    return mostrarToast(mensaje, "warning", duracion);
+}
+
 let usuarioSesion = null;
 
 let cache = {
     clientes: [],
     obras: [],
+
     materiales: [],
     materialesObra: [],
     gastos: [],
@@ -144,7 +286,7 @@ async function iniciarSesion(event) {
         });
 
         if (!usuario) {
-            alert("Email o contraseña incorrectos");
+            mostrarMensajeLogin("Email o contraseña incorrectos", "error");
             return;
         }
 
@@ -718,7 +860,7 @@ async function guardarCliente(event) {
         await cargarTodo();
     } catch (error) {
         console.error("Error al guardar cliente:", error);
-        alert("Error al guardar cliente: " + error.message);
+        mostrarModalError("Error", "Error al guardar cliente: " + error.message);
     }
 }
 
@@ -737,7 +879,8 @@ function editarCliente(id) {
 }
 
 async function eliminarCliente(id) {
-    if (!confirm("¿Seguro que querés eliminar este cliente?")) return;
+    const confirmar = await mostrarModalConfirmacion("Eliminar cliente", "¿Estás seguro de que deseas eliminar este cliente?");
+    if (!confirmar) return;
 
     try {
         await eliminarPorApi(`${API.cliente}/${id}`);
@@ -835,7 +978,8 @@ function editarObra(id) {
 }
 
 async function eliminarObra(id) {
-    if (!confirm("¿Seguro que querés eliminar esta obra?")) return;
+    const confirmar = await mostrarModalConfirmacion("Eliminar obra", "¿Estás seguro de que deseas eliminar esta obra?");
+    if (!confirmar) return;
 
     try {
         await eliminarPorApi(`${API.obra}/${id}`);
@@ -919,7 +1063,8 @@ async function asignarEmpleado(idUsuario) {
 }
 
 async function quitarAsignacion(idAsignacion) {
-    if (!confirm("¿Seguro que querés quitar este empleado de la obra?")) return;
+    const confirmar = await mostrarModalConfirmacion("Quitar empleado", "¿Estás seguro de que deseas quitar este empleado de la obra?");
+    if (!confirmar) return;
 
     try {
         await eliminarPorApi(`${API.asignacion}/${idAsignacion}`);
@@ -1047,7 +1192,8 @@ function editarMaterialAsignado(idMaterialObra, idMaterial) {
 }
 
 async function eliminarMaterialAsignado(idMaterialObra, idMaterial) {
-    if (!confirm("¿Seguro que querés eliminar este material?")) return;
+    const confirmar = await mostrarModalConfirmacion("Eliminar material", "¿Estás seguro de que deseas eliminar este material?");
+    if (!confirmar) return;
 
     try {
         if (idMaterialObra) {
@@ -1152,7 +1298,8 @@ function editarGasto(id) {
 }
 
 async function eliminarGasto(id) {
-    if (!confirm("¿Seguro que querés eliminar este gasto?")) return;
+    const confirmar = await mostrarModalConfirmacion("Eliminar gasto", "¿Estás seguro de que deseas eliminar este gasto?");
+    if (!confirmar) return;
 
     try {
         await eliminarPorApi(`${API.gasto}/${id}`);
