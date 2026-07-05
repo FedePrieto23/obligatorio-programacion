@@ -1,116 +1,129 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Obligatorio_Programacion.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class InitialPostgres : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySQL:Charset", "utf8mb4");
+            migrationBuilder.CreateTable(
+                name: "Auditorias",
+                columns: table => new
+                {
+                    IdAuditoria = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdUsuario = table.Column<int>(type: "integer", nullable: false),
+                    Accion = table.Column<string>(type: "text", nullable: false),
+                    Tabla = table.Column<string>(type: "text", nullable: false),
+                    IdRegistro = table.Column<int>(type: "integer", nullable: false),
+                    DescripcionCambio = table.Column<string>(type: "text", nullable: false),
+                    FechaHora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DatosAnteriores = table.Column<string>(type: "text", nullable: false),
+                    DatosNuevos = table.Column<string>(type: "text", nullable: false),
+                    DireccionIP = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auditorias", x => x.IdAuditoria);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
                 {
-                    IdCliente = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreCliente = table.Column<string>(type: "longtext", nullable: false),
-                    ApellidoCliente = table.Column<string>(type: "longtext", nullable: false),
-                    Documento = table.Column<string>(type: "longtext", nullable: false),
-                    DireccionCliente = table.Column<string>(type: "longtext", nullable: false),
-                    EmailCliente = table.Column<string>(type: "longtext", nullable: false)
+                    IdCliente = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreCliente = table.Column<string>(type: "text", nullable: false),
+                    ApellidoCliente = table.Column<string>(type: "text", nullable: false),
+                    Documento = table.Column<string>(type: "text", nullable: false),
+                    DireccionCliente = table.Column<string>(type: "text", nullable: false),
+                    EmailCliente = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clientes", x => x.IdCliente);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Materiales",
                 columns: table => new
                 {
-                    IdMaterial = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreMaterial = table.Column<string>(type: "longtext", nullable: false),
-                    UnidadMedida = table.Column<string>(type: "longtext", nullable: false),
-                    PrecioUnitario = table.Column<double>(type: "double", nullable: false),
-                    EstadoMaterial = table.Column<string>(type: "longtext", nullable: false)
+                    IdMaterial = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreMaterial = table.Column<string>(type: "text", nullable: false),
+                    UnidadMedida = table.Column<string>(type: "text", nullable: false),
+                    PrecioUnitario = table.Column<double>(type: "double precision", nullable: false),
+                    EstadoMaterial = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Materiales", x => x.IdMaterial);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Oficios",
                 columns: table => new
                 {
-                    IdOficio = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreOficio = table.Column<string>(type: "longtext", nullable: false),
-                    descripcionOficio = table.Column<string>(type: "longtext", nullable: false)
+                    IdOficio = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreOficio = table.Column<string>(type: "text", nullable: false),
+                    descripcionOficio = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Oficios", x => x.IdOficio);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Proveedores",
                 columns: table => new
                 {
-                    IdProveedor = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreProveedor = table.Column<string>(type: "longtext", nullable: false),
-                    RUT = table.Column<string>(type: "longtext", nullable: false),
-                    TipoProveedor = table.Column<string>(type: "longtext", nullable: false),
-                    EstadoProveedor = table.Column<string>(type: "longtext", nullable: false),
-                    EmailProveedor = table.Column<string>(type: "longtext", nullable: false),
-                    DireccionProveedor = table.Column<string>(type: "longtext", nullable: false)
+                    IdProveedor = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreProveedor = table.Column<string>(type: "text", nullable: false),
+                    RUT = table.Column<string>(type: "text", nullable: false),
+                    TipoProveedor = table.Column<string>(type: "text", nullable: false),
+                    EstadoProveedor = table.Column<string>(type: "text", nullable: false),
+                    EmailProveedor = table.Column<string>(type: "text", nullable: false),
+                    DireccionProveedor = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Proveedores", x => x.IdProveedor);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "TiposGasto",
                 columns: table => new
                 {
-                    IdTipoGasto = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreTipoGasto = table.Column<string>(type: "longtext", nullable: false)
+                    IdTipoGasto = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreTipoGasto = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TiposGasto", x => x.IdTipoGasto);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Obras",
                 columns: table => new
                 {
-                    IdObra = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreObra = table.Column<string>(type: "longtext", nullable: false),
-                    Presupuesto = table.Column<double>(type: "double", nullable: false),
-                    DireccionObra = table.Column<string>(type: "longtext", nullable: false),
-                    FechaInicio = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaFin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EstadoObra = table.Column<string>(type: "longtext", nullable: false),
-                    IdCliente = table.Column<int>(type: "int", nullable: false)
+                    IdObra = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreObra = table.Column<string>(type: "text", nullable: false),
+                    Presupuesto = table.Column<double>(type: "double precision", nullable: false),
+                    DireccionObra = table.Column<string>(type: "text", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EstadoObra = table.Column<string>(type: "text", nullable: false),
+                    IdCliente = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,15 +134,14 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Clientes",
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "TelClientes",
                 columns: table => new
                 {
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
-                    TelefonoCliente = table.Column<string>(type: "longtext", nullable: false)
+                    IdCliente = table.Column<int>(type: "integer", nullable: false),
+                    TelefonoCliente = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,20 +152,19 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Clientes",
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    NombreUsuario = table.Column<string>(type: "longtext", nullable: false),
-                    EmailUsuario = table.Column<string>(type: "longtext", nullable: false),
-                    Contraseña = table.Column<string>(type: "longtext", nullable: false),
-                    TipoEmpleado = table.Column<string>(type: "longtext", nullable: false),
-                    IdOficio = table.Column<int>(type: "int", nullable: false)
+                    IdUsuario = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreUsuario = table.Column<string>(type: "text", nullable: false),
+                    EmailUsuario = table.Column<string>(type: "text", nullable: false),
+                    Contraseña = table.Column<string>(type: "text", nullable: false),
+                    TipoEmpleado = table.Column<string>(type: "text", nullable: false),
+                    IdOficio = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -164,15 +175,14 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Oficios",
                         principalColumn: "IdOficio",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "TelProveedores",
                 columns: table => new
                 {
-                    IdProveedor = table.Column<int>(type: "int", nullable: false),
-                    TelefonoProveedor = table.Column<string>(type: "longtext", nullable: false)
+                    IdProveedor = table.Column<int>(type: "integer", nullable: false),
+                    TelefonoProveedor = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,21 +193,20 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Proveedores",
                         principalColumn: "IdProveedor",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Compras",
                 columns: table => new
                 {
-                    IdCompra = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    FechaCompra = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EstadoCompra = table.Column<string>(type: "longtext", nullable: false),
-                    ComprobanteCompra = table.Column<string>(type: "longtext", nullable: false),
-                    ObservacionCompra = table.Column<string>(type: "longtext", nullable: false),
-                    IdProveedor = table.Column<int>(type: "int", nullable: false),
-                    IdObra = table.Column<int>(type: "int", nullable: false)
+                    IdCompra = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FechaCompra = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EstadoCompra = table.Column<string>(type: "text", nullable: false),
+                    ComprobanteCompra = table.Column<string>(type: "text", nullable: false),
+                    ObservacionCompra = table.Column<string>(type: "text", nullable: false),
+                    IdProveedor = table.Column<int>(type: "integer", nullable: false),
+                    IdObra = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,21 +223,20 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Proveedores",
                         principalColumn: "IdProveedor",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Gastos",
                 columns: table => new
                 {
-                    IdGasto = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    DescGasto = table.Column<string>(type: "longtext", nullable: false),
-                    MontoGasto = table.Column<double>(type: "double", nullable: false),
-                    ComprobanteGasto = table.Column<string>(type: "longtext", nullable: false),
-                    FechaGasto = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    IdObra = table.Column<int>(type: "int", nullable: false),
-                    IdTipoGasto = table.Column<int>(type: "int", nullable: false)
+                    IdGasto = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DescGasto = table.Column<string>(type: "text", nullable: false),
+                    MontoGasto = table.Column<double>(type: "double precision", nullable: false),
+                    ComprobanteGasto = table.Column<string>(type: "text", nullable: false),
+                    FechaGasto = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IdObra = table.Column<int>(type: "integer", nullable: false),
+                    IdTipoGasto = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,19 +253,18 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "TiposGasto",
                         principalColumn: "IdTipoGasto",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "MaterialesObras",
                 columns: table => new
                 {
-                    IdMaterialObra = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    IdObra = table.Column<int>(type: "int", nullable: false),
-                    CantidadMO = table.Column<int>(type: "int", nullable: false),
-                    EstadoMO = table.Column<string>(type: "longtext", nullable: false),
-                    IdMaterial = table.Column<int>(type: "int", nullable: false)
+                    IdMaterialObra = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdObra = table.Column<int>(type: "integer", nullable: false),
+                    CantidadMO = table.Column<int>(type: "integer", nullable: false),
+                    EstadoMO = table.Column<string>(type: "text", nullable: false),
+                    IdMaterial = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -274,17 +281,16 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Obras",
                         principalColumn: "IdObra",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Asignaciones",
                 columns: table => new
                 {
-                    IdAsignacion = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    IdUsuario = table.Column<int>(type: "int", nullable: false),
-                    IdObra = table.Column<int>(type: "int", nullable: false)
+                    IdAsignacion = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdUsuario = table.Column<int>(type: "integer", nullable: false),
+                    IdObra = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,16 +307,15 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "RolesAdmin",
                 columns: table => new
                 {
-                    IdUsuarioAd = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UsuarioIdUsuario = table.Column<int>(type: "int", nullable: false)
+                    IdUsuarioAd = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UsuarioIdUsuario = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -319,18 +324,16 @@ namespace Obligatorio_Programacion.Migrations
                         name: "FK_RolesAdmin_Usuarios_UsuarioIdUsuario",
                         column: x => x.UsuarioIdUsuario,
                         principalTable: "Usuarios",
-                        principalColumn: "IdUsuario",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                        principalColumn: "IdUsuario");
+                });
 
             migrationBuilder.CreateTable(
                 name: "RolesEmpleado",
                 columns: table => new
                 {
-                    IdUsuarioEmp = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UsuarioIdUsuario = table.Column<int>(type: "int", nullable: false)
+                    IdUsuarioEmp = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UsuarioIdUsuario = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,17 +342,15 @@ namespace Obligatorio_Programacion.Migrations
                         name: "FK_RolesEmpleado_Usuarios_UsuarioIdUsuario",
                         column: x => x.UsuarioIdUsuario,
                         principalTable: "Usuarios",
-                        principalColumn: "IdUsuario",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                        principalColumn: "IdUsuario");
+                });
 
             migrationBuilder.CreateTable(
                 name: "TelUsuarios",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<int>(type: "int", nullable: false),
-                    TelefonoUsuario = table.Column<string>(type: "longtext", nullable: false)
+                    IdUsuario = table.Column<int>(type: "integer", nullable: false),
+                    TelefonoUsuario = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -360,19 +361,18 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "DetallesCompras",
                 columns: table => new
                 {
-                    IdDetalleCompra = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    IdMaterial = table.Column<int>(type: "int", nullable: false),
-                    CantidadComprada = table.Column<int>(type: "int", nullable: false),
-                    PrecioUnitario = table.Column<double>(type: "double", nullable: false),
-                    IdCompra = table.Column<int>(type: "int", nullable: false)
+                    IdDetalleCompra = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdMaterial = table.Column<int>(type: "integer", nullable: false),
+                    CantidadComprada = table.Column<int>(type: "integer", nullable: false),
+                    PrecioUnitario = table.Column<double>(type: "double precision", nullable: false),
+                    IdCompra = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -389,21 +389,53 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Materiales",
                         principalColumn: "IdMaterial",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Alertas",
+                columns: table => new
+                {
+                    IdAlerta = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdMaterialObra = table.Column<int>(type: "integer", nullable: false),
+                    IdObra = table.Column<int>(type: "integer", nullable: false),
+                    TipoAlerta = table.Column<string>(type: "text", nullable: false),
+                    Mensaje = table.Column<string>(type: "text", nullable: false),
+                    FechaAlerta = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Resuelta = table.Column<bool>(type: "boolean", nullable: false),
+                    FechaResolucion = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CantidadActual = table.Column<int>(type: "integer", nullable: false),
+                    CantidadMinima = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alertas", x => x.IdAlerta);
+                    table.ForeignKey(
+                        name: "FK_Alertas_MaterialesObras_IdMaterialObra",
+                        column: x => x.IdMaterialObra,
+                        principalTable: "MaterialesObras",
+                        principalColumn: "IdMaterialObra",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Alertas_Obras_IdObra",
+                        column: x => x.IdObra,
+                        principalTable: "Obras",
+                        principalColumn: "IdObra",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Tareas",
                 columns: table => new
                 {
-                    IdTarea = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Prioridad = table.Column<string>(type: "longtext", nullable: false),
-                    DescTarea = table.Column<string>(type: "longtext", nullable: false),
-                    FechaInicio = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaFin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EstadoTarea = table.Column<string>(type: "longtext", nullable: false),
-                    IdAsignacion = table.Column<int>(type: "int", nullable: false)
+                    IdTarea = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Prioridad = table.Column<string>(type: "text", nullable: false),
+                    DescTarea = table.Column<string>(type: "text", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EstadoTarea = table.Column<string>(type: "text", nullable: false),
+                    IdAsignacion = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -414,19 +446,18 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Asignaciones",
                         principalColumn: "IdAsignacion",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "AvancesTareas",
                 columns: table => new
                 {
-                    IdAvance = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    FechaAvance = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    PorcentajeAvance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DescripcionAvance = table.Column<string>(type: "longtext", nullable: false),
-                    IdTarea = table.Column<int>(type: "int", nullable: false)
+                    IdAvance = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FechaAvance = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PorcentajeAvance = table.Column<decimal>(type: "numeric", nullable: false),
+                    DescripcionAvance = table.Column<string>(type: "text", nullable: false),
+                    IdTarea = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -437,8 +468,17 @@ namespace Obligatorio_Programacion.Migrations
                         principalTable: "Tareas",
                         principalColumn: "IdTarea",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Alertas_IdMaterialObra",
+                table: "Alertas",
+                column: "IdMaterialObra");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Alertas_IdObra",
+                table: "Alertas",
+                column: "IdObra");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Asignaciones_IdObra",
@@ -525,6 +565,12 @@ namespace Obligatorio_Programacion.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Alertas");
+
+            migrationBuilder.DropTable(
+                name: "Auditorias");
+
+            migrationBuilder.DropTable(
                 name: "AvancesTareas");
 
             migrationBuilder.DropTable(
@@ -532,9 +578,6 @@ namespace Obligatorio_Programacion.Migrations
 
             migrationBuilder.DropTable(
                 name: "Gastos");
-
-            migrationBuilder.DropTable(
-                name: "MaterialesObras");
 
             migrationBuilder.DropTable(
                 name: "RolesAdmin");
@@ -550,6 +593,9 @@ namespace Obligatorio_Programacion.Migrations
 
             migrationBuilder.DropTable(
                 name: "TelUsuarios");
+
+            migrationBuilder.DropTable(
+                name: "MaterialesObras");
 
             migrationBuilder.DropTable(
                 name: "Tareas");
