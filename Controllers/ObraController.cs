@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Helpers;
 using Obligatorio_Programacion.Service;
@@ -44,12 +44,12 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             if (obra.IdCliente <= 0)
             {
-                return BadRequest("Debe seleccionar un cliente válido.");
+                return BadRequest("Debe seleccionar un cliente vÃ¡lido.");
             }
 
             try
@@ -63,7 +63,7 @@ namespace Obligatorio_Programacion.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest("No se pudo guardar la obra. Revisá que el cliente seleccionado exista en la tabla Clientes.");
+                return BadRequest("No se pudo guardar la obra. RevisÃ¡ que el cliente seleccionado exista en la tabla Clientes.");
             }
         }
 
@@ -72,7 +72,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var obraAnterior = _obraService.ObtenerPorId(id);
@@ -99,7 +99,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var obraAnterior = _obraService.ObtenerPorId(id);

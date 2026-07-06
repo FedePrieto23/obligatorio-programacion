@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Helpers;
@@ -44,12 +44,12 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             if (materialObra.IdObra <= 0 || materialObra.IdMaterial <= 0)
             {
-                return BadRequest("Debe seleccionar una obra y un material válidos.");
+                return BadRequest("Debe seleccionar una obra y un material vÃ¡lidos.");
             }
 
             if (materialObra.CantidadMO <= 0)
@@ -68,7 +68,7 @@ namespace Obligatorio_Programacion.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest("No se pudo asociar el material. Revisá que la obra y el material existan.");
+                return BadRequest("No se pudo asociar el material. RevisÃ¡ que la obra y el material existan.");
             }
         }
 
@@ -77,7 +77,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var materialObraAnterior = _materialObraService.ObtenerPorId(id);
@@ -104,7 +104,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var materialObraAnterior = _materialObraService.ObtenerPorId(id);

@@ -6,10 +6,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Obligatorio_Programacion.Migrations
 {
-    /// <inheritdoc />
+
     public partial class InitialPostgres : Migration
     {
-        /// <inheritdoc />
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -561,7 +561,7 @@ namespace Obligatorio_Programacion.Migrations
                 column: "IdOficio");
         }
 
-        /// <inheritdoc />
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

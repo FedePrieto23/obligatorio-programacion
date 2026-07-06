@@ -1,4 +1,4 @@
-namespace Obligatorio_Programacion.Entity
+﻿namespace Obligatorio_Programacion.Entity
 {
     public class TelUsuario
     {

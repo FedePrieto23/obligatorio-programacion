@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Obligatorio_Programacion.Data;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Repository;
@@ -60,18 +60,18 @@ using (var scope = app.Services.CreateScope())
         db.Oficios.AddRange(
             new Oficio
             {
-                NombreOficio = "Albañil",
-                descripcionOficio = "Trabajos generales de construcción"
+                NombreOficio = "AlbaÃ±il",
+                descripcionOficio = "Trabajos generales de construcciÃ³n"
             },
             new Oficio
             {
                 NombreOficio = "Electricista",
-                descripcionOficio = "Instalaciones y reparaciones eléctricas"
+                descripcionOficio = "Instalaciones y reparaciones elÃ©ctricas"
             },
             new Oficio
             {
                 NombreOficio = "Sanitario",
-                descripcionOficio = "Trabajos de cañería, baños y sanitaria"
+                descripcionOficio = "Trabajos de caÃ±erÃ­a, baÃ±os y sanitaria"
             },
             new Oficio
             {

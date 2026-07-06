@@ -43,8 +43,6 @@ namespace Obligatorio_Programacion.Controllers
         [HttpPost]
         public IActionResult Crear([FromBody] Usuario usuario)
         {
-            // El registro de cuentas se hace desde la pantalla de inicio, por eso este POST queda público.
-            // Las modificaciones y eliminaciones siguen reservadas al administrador.
             if (string.IsNullOrWhiteSpace(usuario.NombreUsuario) || string.IsNullOrWhiteSpace(usuario.EmailUsuario) || string.IsNullOrWhiteSpace(usuario.Contraseña))
             {
                 return BadRequest("Nombre, email y contraseña son obligatorios.");
@@ -123,7 +121,6 @@ namespace Obligatorio_Programacion.Controllers
             return Ok("Registro eliminado correctamente.");
         }
 
-        // Endpoint de debug para ver todos los usuarios
         [HttpGet("debug-usuarios")]
         public IActionResult DebugUsuarios()
         {

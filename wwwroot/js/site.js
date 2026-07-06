@@ -1,4 +1,4 @@
-const API = {
+﻿const API = {
     cliente: "/api/cliente",
     obra: "/api/obra",
     material: "/api/material",
@@ -17,7 +17,6 @@ const ADMIN_DEMO = {
     rol: "Administrador"
 };
 
-// Sistema simple de mensajes para login
 function mostrarMensajeLogin(mensaje, tipo = "error") {
     const messageDiv = document.getElementById("loginMessage");
     if (!messageDiv) return;
@@ -35,7 +34,6 @@ function mostrarMensajeLogin(mensaje, tipo = "error") {
         messageDiv.style.border = "1px solid #cfc";
     }
 
-    // Auto-ocultar después de 5 segundos si es error
     if (tipo === "error") {
         setTimeout(() => {
             messageDiv.style.display = "none";
@@ -43,7 +41,6 @@ function mostrarMensajeLogin(mensaje, tipo = "error") {
     }
 }
 
-// ================= MODAL PERSONALIZADO =================
 function mostrarModalAlerta(titulo, mensaje) {
     return new Promise((resolve) => {
         const overlay = document.getElementById("modalOverlay");
@@ -113,7 +110,6 @@ function cerrarModal() {
     cancelBtn.onclick = null;
 }
 
-// Cerrar modal al presionar Escape o hacer clic fuera
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
         const overlay = document.getElementById("modalOverlay");
@@ -123,7 +119,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// Cerrar modal al hacer clic en el overlay (fuera del contenedor)
 document.addEventListener("click", (e) => {
     const overlay = document.getElementById("modalOverlay");
     if (overlay && overlay.style.display === "flex" && e.target === overlay) {
@@ -131,7 +126,6 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// ================= SISTEMA DE TOASTS/NOTIFICACIONES =================
 function mostrarToast(mensaje, tipo = "info", duracion = 4000) {
     const container = document.getElementById("toastContainer");
     if (!container) return;
@@ -140,22 +134,21 @@ function mostrarToast(mensaje, tipo = "info", duracion = 4000) {
     toast.className = `toast ${tipo}`;
 
     const iconos = {
-        success: "✓",
-        error: "✕",
-        info: "ⓘ",
-        warning: "⚠"
+        success: "âœ“",
+        error: "âœ•",
+        info: "â“˜",
+        warning: "âš "
     };
 
     toast.innerHTML = `
-        <div class="toast-icon">${iconos[tipo] || "•"}</div>
+        <div class="toast-icon">${iconos[tipo] || "â€¢"}</div>
         <div class="toast-message">${mensaje}</div>
-        <button class="toast-close" onclick="this.parentElement.remove()" aria-label="Cerrar notificación">×</button>
+        <button class="toast-close" onclick="this.parentElement.remove()" aria-label="Cerrar notificaciÃ³n">Ã—</button>
         <div class="toast-progress"></div>
     `;
 
     container.appendChild(toast);
 
-    // Auto-remover después de la duración
     if (duracion > 0) {
         setTimeout(() => {
             if (toast.parentElement) {
@@ -201,8 +194,8 @@ let cache = {
 
 const OFICIOS_BASE = [
     { nombreOficio: "General", descripcionOficio: "Tareas generales" },
-    { nombreOficio: "Albañil", descripcionOficio: "Trabajos de albañilería" },
-    { nombreOficio: "Electricista", descripcionOficio: "Instalaciones eléctricas" },
+    { nombreOficio: "AlbaÃ±il", descripcionOficio: "Trabajos de albaÃ±ilerÃ­a" },
+    { nombreOficio: "Electricista", descripcionOficio: "Instalaciones elÃ©ctricas" },
     { nombreOficio: "Sanitario", descripcionOficio: "Instalaciones sanitarias" },
     { nombreOficio: "Pintor", descripcionOficio: "Pintura y terminaciones" }
 ];
@@ -226,7 +219,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-// ================= AUTENTICACIÓN =================
 function configurarAuth() {
     document.getElementById("formLogin").addEventListener("submit", iniciarSesion);
     document.getElementById("formRegistro").addEventListener("submit", registrarCuenta);
@@ -270,7 +262,7 @@ async function iniciarSesion(event) {
     const password = document.getElementById("loginPassword").value;
 
     if (email === ADMIN_DEMO.email && password === ADMIN_DEMO.password) {
-        usuarioSesion = { idUsuario: 0, nombre: ADMIN_DEMO.nombre, email: ADMIN_DEMO.email, rol: ADMIN_DEMO.rol, oficio: "Administración" };
+        usuarioSesion = { idUsuario: 0, nombre: ADMIN_DEMO.nombre, email: ADMIN_DEMO.email, rol: ADMIN_DEMO.rol, oficio: "AdministraciÃ³n" };
         localStorage.setItem("pagesSesion", JSON.stringify(usuarioSesion));
         await mostrarAplicacion();
         return;
@@ -286,7 +278,7 @@ async function iniciarSesion(event) {
         });
 
         if (!usuario) {
-            mostrarMensajeLogin("Email o contraseña incorrectos", "error");
+            mostrarMensajeLogin("Email o contraseÃ±a incorrectos", "error");
             return;
         }
 
@@ -305,12 +297,12 @@ async function registrarCuenta(event) {
     const nuevoUsuario = {
         nombreUsuario: document.getElementById("registroNombre").value.trim(),
         emailUsuario: document.getElementById("registroEmail").value.trim().toLowerCase(),
-        contraseña: document.getElementById("registroPassword").value,
+        contraseÃ±a: document.getElementById("registroPassword").value,
         tipoEmpleado: document.getElementById("registroRol").value,
         idOficio: Number(document.getElementById("registroOficio").value)
     };
 
-    if (!nuevoUsuario.nombreUsuario || !nuevoUsuario.emailUsuario || !nuevoUsuario.contraseña || !nuevoUsuario.idOficio) {
+    if (!nuevoUsuario.nombreUsuario || !nuevoUsuario.emailUsuario || !nuevoUsuario.contraseÃ±a || !nuevoUsuario.idOficio) {
         return;
     }
 
@@ -345,7 +337,7 @@ function usuarioSesionDesdeApi(usuario) {
 }
 
 function obtenerContrasenaUsuario(usuario) {
-    return usuario.contraseña || usuario.contrasena || usuario.password || "";
+    return usuario.contraseÃ±a || usuario.contrasena || usuario.password || "";
 }
 
 function cerrarSesion() {
@@ -388,7 +380,6 @@ function headersJson() {
     };
 }
 
-// ================= CONFIGURACIÓN GENERAL =================
 function configurarMenu() {
     document.querySelectorAll(".menu a, .quick-card").forEach(link => {
         link.addEventListener("click", function (event) {
@@ -408,12 +399,12 @@ function irASeccion(section) {
     document.getElementById(`seccion-${section}`).classList.add("activa");
 
     const titulos = {
-        inicio: ["Panel principal", "Gestión de obras, materiales, costos y personal."],
+        inicio: ["Panel principal", "GestiÃ³n de obras, materiales, costos y personal."],
         clientes: ["Clientes", "Consulta de clientes y obras asociadas."],
         obras: ["Obras", "Seguimiento de obras, clientes, costos y personal."],
-        asignaciones: ["Personal de obra", "Asignación de empleados registrados a cada obra."],
+        asignaciones: ["Personal de obra", "AsignaciÃ³n de empleados registrados a cada obra."],
         materiales: ["Materiales por obra", "Registro de materiales destinados a cada obra."],
-        gastos: ["Gastos", "Carga de gastos asociados automáticamente a una obra."]
+        gastos: ["Gastos", "Carga de gastos asociados automÃ¡ticamente a una obra."]
     };
 
     document.getElementById("tituloPagina").textContent = titulos[section]?.[0] || "Panel";
@@ -495,7 +486,6 @@ async function asegurarDatosBase() {
     let recargarOficios = false;
 
     if (cache.tiposGasto.length === 0) {
-        // Cargar primero para verificar si ya existen
         const tiposExistentes = await cargarJson(API.tipoGasto);
         if (tiposExistentes.length === 0) {
             for (const nombreTipoGasto of TIPOS_GASTO_BASE) {
@@ -508,7 +498,6 @@ async function asegurarDatosBase() {
     }
 
     if (cache.oficios.length === 0) {
-        // Cargar primero para verificar si ya existen
         const oficiosExistentes = await cargarJson(API.oficio);
         if (oficiosExistentes.length === 0) {
             for (const oficio of OFICIOS_BASE) {
@@ -580,7 +569,7 @@ async function enviarJsonComoAdmin(url, metodo, datos) {
 async function manejarRespuesta(respuesta) {
     if (!respuesta.ok) {
         const texto = await respuesta.text();
-        throw new Error(texto || "No se pudo completar la acción");
+        throw new Error(texto || "No se pudo completar la acciÃ³n");
     }
 
     const contentType = respuesta.headers.get("content-type") || "";
@@ -756,7 +745,6 @@ function renderizarTodo() {
     actualizarStats();
 }
 
-// ================= PANEL =================
 function renderizarPanelFiltros() {
     const contenedor = document.getElementById("resultadoPanelFiltros");
     if (!contenedor) return;
@@ -780,7 +768,6 @@ function renderizarPanelFiltros() {
     `;
 }
 
-// ================= CLIENTES =================
 function obrasDeCliente(idCliente) {
     return cache.obras.filter(o => Number(o.idCliente) === Number(idCliente));
 }
@@ -819,19 +806,19 @@ function renderizarObrasCliente() {
 
     const idCliente = Number(document.getElementById("clienteDetalleObras")?.value || 0);
     if (!idCliente) {
-        contenedor.innerHTML = `<div class="empty-small">Seleccioná un cliente para ver sus obras.</div>`;
+        contenedor.innerHTML = `<div class="empty-small">SeleccionÃ¡ un cliente para ver sus obras.</div>`;
         return;
     }
 
     const obras = obrasDeCliente(idCliente);
     if (obras.length === 0) {
-        contenedor.innerHTML = `<div class="empty-small">Este cliente todavía no tiene obras registradas.</div>`;
+        contenedor.innerHTML = `<div class="empty-small">Este cliente todavÃ­a no tiene obras registradas.</div>`;
         return;
     }
 
     contenedor.innerHTML = obras.map(obra => `
         <div class="mini-item">
-            <div><strong>${obra.nombreObra}</strong><span>${obra.estadoObra} · ${obra.direccionObra}</span></div>
+            <div><strong>${obra.nombreObra}</strong><span>${obra.estadoObra} Â· ${obra.direccionObra}</span></div>
             <div class="mini-total">${formatoMoneda(totalObra(obra.idObra))}</div>
         </div>
     `).join("");
@@ -879,7 +866,7 @@ function editarCliente(id) {
 }
 
 async function eliminarCliente(id) {
-    const confirmar = await mostrarModalConfirmacion("Eliminar cliente", "¿Estás seguro de que deseas eliminar este cliente?");
+    const confirmar = await mostrarModalConfirmacion("Eliminar cliente", "Â¿EstÃ¡s seguro de que deseas eliminar este cliente?");
     if (!confirmar) return;
 
     try {
@@ -895,7 +882,6 @@ function limpiarFormularioCliente() {
     document.getElementById("tituloFormCliente").textContent = "Registrar cliente";
 }
 
-// ================= OBRAS =================
 function renderizarObras() {
     const tabla = document.getElementById("tablaObras");
     const filtro = normalizar(document.getElementById("buscarObra")?.value || "");
@@ -978,7 +964,7 @@ function editarObra(id) {
 }
 
 async function eliminarObra(id) {
-    const confirmar = await mostrarModalConfirmacion("Eliminar obra", "¿Estás seguro de que deseas eliminar esta obra?");
+    const confirmar = await mostrarModalConfirmacion("Eliminar obra", "Â¿EstÃ¡s seguro de que deseas eliminar esta obra?");
     if (!confirmar) return;
 
     try {
@@ -994,7 +980,6 @@ function limpiarFormularioObra() {
     document.getElementById("tituloFormObra").textContent = "Registrar obra";
 }
 
-// ================= ASIGNACIONES =================
 function renderizarAsignaciones() {
     const listaDisponibles = document.getElementById("listaEmpleadosAsignacion");
     const listaAsignados = document.getElementById("listaAsignadosObra");
@@ -1006,8 +991,8 @@ function renderizarAsignaciones() {
     const filtroRol = document.getElementById("filtroRolAsignacion")?.value || "";
 
     if (!idObra) {
-        listaDisponibles.innerHTML = `<div class="empty-small">Seleccioná una obra para asignar empleados.</div>`;
-        listaAsignados.innerHTML = `<div class="empty-small">Todavía no hay una obra seleccionada.</div>`;
+        listaDisponibles.innerHTML = `<div class="empty-small">SeleccionÃ¡ una obra para asignar empleados.</div>`;
+        listaAsignados.innerHTML = `<div class="empty-small">TodavÃ­a no hay una obra seleccionada.</div>`;
         return;
     }
 
@@ -1029,20 +1014,20 @@ function renderizarAsignaciones() {
             const yaAsignado = idsAsignados.has(Number(usuario.idUsuario));
             return `
                 <div class="employee-item">
-                    <div><strong>${usuario.nombreUsuario}</strong><span>${textoRol(usuario.tipoEmpleado)} · ${oficio} · ${usuario.emailUsuario}</span></div>
+                    <div><strong>${usuario.nombreUsuario}</strong><span>${textoRol(usuario.tipoEmpleado)} Â· ${oficio} Â· ${usuario.emailUsuario}</span></div>
                     ${esAdmin() ? `<button class="btn ${yaAsignado ? "btn-light" : "btn-primary"}" ${yaAsignado ? "disabled" : ""} onclick="asignarEmpleado(${usuario.idUsuario})">${yaAsignado ? "Asignado" : "Asignar"}</button>` : ""}
                 </div>
             `;
         }).join("");
 
     listaAsignados.innerHTML = asignados.length === 0
-        ? `<div class="empty-small">Esta obra todavía no tiene empleados asignados.</div>`
+        ? `<div class="empty-small">Esta obra todavÃ­a no tiene empleados asignados.</div>`
         : asignados.map(asignacion => {
             const usuario = asignacion.usuario || cache.usuarios.find(u => Number(u.idUsuario) === Number(asignacion.idUsuario));
             const oficio = usuario?.oficio ? usuario.oficio.nombreOficio : obtenerNombreOficio(usuario?.idOficio);
             return `
                 <div class="employee-item assigned">
-                    <div><strong>${usuario?.nombreUsuario || "Usuario no encontrado"}</strong><span>${textoRol(usuario?.tipoEmpleado)} · ${oficio}</span></div>
+                    <div><strong>${usuario?.nombreUsuario || "Usuario no encontrado"}</strong><span>${textoRol(usuario?.tipoEmpleado)} Â· ${oficio}</span></div>
                     ${esAdmin() ? `<button class="btn btn-danger" onclick="quitarAsignacion(${asignacion.idAsignacion})">Quitar</button>` : ""}
                 </div>
             `;
@@ -1063,7 +1048,7 @@ async function asignarEmpleado(idUsuario) {
 }
 
 async function quitarAsignacion(idAsignacion) {
-    const confirmar = await mostrarModalConfirmacion("Quitar empleado", "¿Estás seguro de que deseas quitar este empleado de la obra?");
+    const confirmar = await mostrarModalConfirmacion("Quitar empleado", "Â¿EstÃ¡s seguro de que deseas quitar este empleado de la obra?");
     if (!confirmar) return;
 
     try {
@@ -1073,7 +1058,6 @@ async function quitarAsignacion(idAsignacion) {
     }
 }
 
-// ================= MATERIALES =================
 function materialObraFilas() {
     const filas = cache.materialesObra.map(mo => ({
         materialObra: mo,
@@ -1192,7 +1176,7 @@ function editarMaterialAsignado(idMaterialObra, idMaterial) {
 }
 
 async function eliminarMaterialAsignado(idMaterialObra, idMaterial) {
-    const confirmar = await mostrarModalConfirmacion("Eliminar material", "¿Estás seguro de que deseas eliminar este material?");
+    const confirmar = await mostrarModalConfirmacion("Eliminar material", "Â¿EstÃ¡s seguro de que deseas eliminar este material?");
     if (!confirmar) return;
 
     try {
@@ -1216,7 +1200,6 @@ function limpiarFormularioMaterial() {
 function editarMaterial(id) { editarMaterialAsignado(0, id); }
 function eliminarMaterial(id) { eliminarMaterialAsignado(0, id); }
 
-// ================= GASTOS =================
 function renderizarGastos() {
     const tabla = document.getElementById("tablaGastos");
     tabla.innerHTML = "";
@@ -1298,7 +1281,7 @@ function editarGasto(id) {
 }
 
 async function eliminarGasto(id) {
-    const confirmar = await mostrarModalConfirmacion("Eliminar gasto", "¿Estás seguro de que deseas eliminar este gasto?");
+    const confirmar = await mostrarModalConfirmacion("Eliminar gasto", "Â¿EstÃ¡s seguro de que deseas eliminar este gasto?");
     if (!confirmar) return;
 
     try {
@@ -1330,22 +1313,22 @@ function actualizarResumenGastoSeleccionado() {
         montoInput.value = materiales;
         montoInput.readOnly = true;
         resumen.textContent = idObra
-            ? `Tipo Materiales: se cargará automáticamente ${formatoMoneda(materiales)} según materiales comprados/usados en esta obra.`
-            : "Seleccioná una obra para calcular automáticamente el monto de materiales.";
+            ? `Tipo Materiales: se cargarÃ¡ automÃ¡ticamente ${formatoMoneda(materiales)} segÃºn materiales comprados/usados en esta obra.`
+            : "SeleccionÃ¡ una obra para calcular automÃ¡ticamente el monto de materiales.";
         return;
     }
 
     montoInput.readOnly = false;
 
     if (!idObra) {
-        resumen.textContent = "Seleccioná una obra para ver su costo actual.";
+        resumen.textContent = "SeleccionÃ¡ una obra para ver su costo actual.";
         return;
     }
 
     resumen.textContent = `Costo actual de la obra: ${formatoMoneda(totalObra(idObra))} (${formatoMoneda(gastosObra(idObra))} en gastos generales + ${formatoMoneda(materiales)} en materiales).`;
 }
 
-// ================= ALERTAS =================
+
 async function cargarAlertas() {
     try {
         const alertas = await cargarJson(`${API.base || ''}/api/alerta/activas`);
@@ -1409,7 +1392,6 @@ async function actualizarCountAlertas() {
     }
 }
 
-// ================= AUDITORÍA =================
 async function cargarAuditoria() {
     try {
         const tabla = document.getElementById("filtroTablaAuditoria")?.value || "";
@@ -1427,8 +1409,7 @@ async function cargarAuditoria() {
 
         mostrarAuditoria(cache.auditorias);
     } catch (error) {
-        console.error("Error cargando auditoría:", error);
-        // Sin mostrar cartel - solo dejamos el error en consola
+        console.error("Error cargando auditorÃ­a:", error);
     }
 }
 
@@ -1458,13 +1439,12 @@ async function mostrarDetallesAuditoria(tabla, idRegistro) {
         const detalles = cambios.map(c => 
             `${c.accion} en ${c.tabla} (${new Date(c.fechaHora).toLocaleString()}):\n` +
             `Antes: ${c.datosAnteriores}\n` +
-            `Después: ${c.datosNuevos}`
+            `DespuÃ©s: ${c.datosNuevos}`
         ).join("\n\n");
     } catch (error) {
     }
 }
 
-// Agregar listeners para filtros
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filtroTablaAuditoria")?.addEventListener("change", cargarAuditoria);
     document.getElementById("filtroAccionAuditoria")?.addEventListener("change", cargarAuditoria);

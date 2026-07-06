@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Helpers;
 using Obligatorio_Programacion.Service;
@@ -43,15 +43,13 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             _gastoService.Add(gasto);
-
-            // Registrar en auditoría
             var direccionIP = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Desconocida";
             _auditoriaService.RegistrarCreacion(
-                idUsuario: 0, // Admin (se puede mejorar con autenticación real)
+                idUsuario: 0,
                 tabla: "Gastos",
                 idRegistro: gasto.IdGasto,
                 datosNuevos: gasto,
@@ -66,10 +64,9 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
-            // Obtener datos anteriores
             var gastoAnterior = _gastoService.ObtenerPorId(id);
             if (gastoAnterior == null)
             {
@@ -83,7 +80,7 @@ namespace Obligatorio_Programacion.Controllers
                 return NotFound("Registro no encontrado.");
             }
 
-            // Registrar en auditoría
+
             var direccionIP = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Desconocida";
             _auditoriaService.RegistrarModificacion(
                 idUsuario: 0,
@@ -102,10 +99,9 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
-            // Obtener datos antes de eliminar
             var gastoAnterior = _gastoService.ObtenerPorId(id);
             if (gastoAnterior == null)
             {
@@ -119,7 +115,7 @@ namespace Obligatorio_Programacion.Controllers
                 return NotFound("Registro no encontrado.");
             }
 
-            // Registrar en auditoría
+
             var direccionIP = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Desconocida";
             _auditoriaService.RegistrarEliminacion(
                 idUsuario: 0,

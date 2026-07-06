@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Helpers;
 using Obligatorio_Programacion.Service;
@@ -43,7 +43,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             _proveedorService.Add(proveedor);
@@ -59,7 +59,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var proveedorAnterior = _proveedorService.ObtenerPorId(id);
@@ -86,7 +86,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede realizar esta acción.");
+                return StatusCode(403, "Solo el administrador puede realizar esta acciÃ³n.");
             }
 
             var proveedorAnterior = _proveedorService.ObtenerPorId(id);

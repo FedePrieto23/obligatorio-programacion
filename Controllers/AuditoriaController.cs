@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion.Service;
 using Obligatorio_Programacion.Helpers;
 
@@ -20,7 +20,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede ver el historial de auditoría.");
+                return StatusCode(403, "Solo el administrador puede ver el historial de auditorÃ­a.");
             }
 
             var auditorias = _auditoriaService.ObtenerTodas();
@@ -32,7 +32,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede ver el historial de auditoría.");
+                return StatusCode(403, "Solo el administrador puede ver el historial de auditorÃ­a.");
             }
 
             var auditorias = _auditoriaService.ObtenerPorTabla(tabla);
@@ -44,7 +44,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede ver el historial de auditoría.");
+                return StatusCode(403, "Solo el administrador puede ver el historial de auditorÃ­a.");
             }
 
             var auditorias = _auditoriaService.ObtenerPorUsuario(idUsuario);
@@ -56,7 +56,7 @@ namespace Obligatorio_Programacion.Controllers
         {
             if (!PermisosHelper.EsAdministrador(Request))
             {
-                return StatusCode(403, "Solo el administrador puede ver el historial de auditoría.");
+                return StatusCode(403, "Solo el administrador puede ver el historial de auditorÃ­a.");
             }
 
             var auditorias = _auditoriaService.ObtenerPorRegistro(tabla, idRegistro);

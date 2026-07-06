@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Obligatorio_Programacion.Entity;
 using Obligatorio_Programacion.Helpers;
@@ -33,7 +33,7 @@ namespace Obligatorio_Programacion.Controllers
 
             if (asignacion == null)
             {
-                return NotFound("Asignación no encontrada.");
+                return NotFound("AsignaciÃ³n no encontrada.");
             }
 
             return Ok(asignacion);
@@ -49,13 +49,13 @@ namespace Obligatorio_Programacion.Controllers
 
             if (asignacion.IdUsuario <= 0 || asignacion.IdObra <= 0)
             {
-                return BadRequest("Debe seleccionar una obra y un empleado válidos.");
+                return BadRequest("Debe seleccionar una obra y un empleado vÃ¡lidos.");
             }
 
             var existente = _asignacionService.ObtenerPorUsuarioYObra(asignacion.IdUsuario, asignacion.IdObra);
             if (existente != null)
             {
-                return BadRequest("Ese empleado ya está asignado a esta obra.");
+                return BadRequest("Ese empleado ya estÃ¡ asignado a esta obra.");
             }
 
             try
@@ -69,7 +69,7 @@ namespace Obligatorio_Programacion.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest("No se pudo guardar la asignación. Revisá que la obra y el empleado existan.");
+                return BadRequest("No se pudo guardar la asignaciÃ³n. RevisÃ¡ que la obra y el empleado existan.");
             }
         }
 
@@ -84,14 +84,14 @@ namespace Obligatorio_Programacion.Controllers
             var asignacionAnterior = _asignacionService.ObtenerPorId(id);
             if (asignacionAnterior == null)
             {
-                return NotFound("Asignación no encontrada.");
+                return NotFound("AsignaciÃ³n no encontrada.");
             }
 
             var actualizado = _asignacionService.Update(id, asignacion);
 
             if (actualizado == null)
             {
-                return NotFound("Asignación no encontrada.");
+                return NotFound("AsignaciÃ³n no encontrada.");
             }
 
             var direccionIP = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Desconocida";
@@ -111,20 +111,20 @@ namespace Obligatorio_Programacion.Controllers
             var asignacionAnterior = _asignacionService.ObtenerPorId(id);
             if (asignacionAnterior == null)
             {
-                return NotFound("Asignación no encontrada.");
+                return NotFound("AsignaciÃ³n no encontrada.");
             }
 
             var eliminado = _asignacionService.Delete(id);
 
             if (!eliminado)
             {
-                return NotFound("Asignación no encontrada.");
+                return NotFound("AsignaciÃ³n no encontrada.");
             }
 
             var direccionIP = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Desconocida";
             _auditoriaService.RegistrarEliminacion(0, "Asignaciones", id, asignacionAnterior, direccionIP);
 
-            return Ok("Asignación eliminada correctamente.");
+            return Ok("AsignaciÃ³n eliminada correctamente.");
         }
     }
 }

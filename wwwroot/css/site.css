@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --azul-principal: #172235;
     --azul-oscuro: #0f1724;
     --azul-claro: #27364f;
@@ -49,7 +49,6 @@ textarea {
     margin-top: 4px;
 }
 
-/* ===== LOGIN / REGISTRO ===== */
 .auth-shell {
     min-height: 100vh;
     display: grid;
@@ -133,7 +132,6 @@ textarea {
     width: 100%;
 }
 
-/* ===== LAYOUT GENERAL ===== */
 .layout {
     min-height: 100vh;
     display: flex;
@@ -186,7 +184,7 @@ textarea {
     width: calc(100% - 270px);
 }
 
-/* ===== HEADER ===== */
+
 .header {
     background: rgba(255, 255, 255, 0.93);
     border: 1px solid var(--borde);
@@ -243,7 +241,7 @@ textarea {
     font-size: 13px;
 }
 
-/* ===== SECCIONES Y TARJETAS ===== */
+
 .page-section {
     display: none;
 }
@@ -341,7 +339,7 @@ textarea {
     line-height: 1.45;
 }
 
-/* ===== BOTONES ===== */
+
 .btn,
 button,
 input[type="submit"] {
@@ -391,7 +389,7 @@ input[type="submit"] {
     background: #dce4ee;
 }
 
-/* ===== FORMULARIOS ===== */
+
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -455,7 +453,7 @@ textarea:focus {
     max-width: 420px;
 }
 
-/* ===== TABLAS ===== */
+
 .table-container {
     width: 100%;
     overflow-x: auto;
@@ -539,7 +537,7 @@ tbody tr:hover {
     border: 1px solid rgba(255, 193, 7, 0.38);
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 1100px) {
     .grid,
     .dashboard-grid,
@@ -617,7 +615,7 @@ tbody tr:hover {
     }
 }
 
-/* ===== MEJORAS FINALES LOGIN / PANEL / ASIGNACIONES ===== */
+
 .auth-shell {
     background:
         radial-gradient(circle at top left, rgba(199, 122, 43, 0.22), transparent 32%),
@@ -862,14 +860,14 @@ button:disabled,
     }
 }
 
-/* ================= ACCESIBILIDAD WCAG AA ================= */
 
-/* Mejorar contraste para cumplir WCAG AA (4.5:1 para texto) */
+
+
 .texto-suave {
-    color: #5a6b7a; /* Mejorado de #667085 para mejor contraste */
+    color: #5a6b7a; 
 }
 
-/* Focus visible para navegación por teclado */
+
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
@@ -879,7 +877,7 @@ a:focus-visible {
     outline-offset: 2px;
 }
 
-/* Skip to main content link (accesibilidad) */
+
 .skip-link {
     position: absolute;
     top: -40px;
@@ -895,7 +893,7 @@ a:focus-visible {
     top: 0;
 }
 
-/* Skip-to-main para nombres antiguos */
+
 .skip-to-main {
     position: absolute;
     top: -40px;
@@ -912,7 +910,7 @@ a:focus-visible {
     top: 0;
 }
 
-/* Labels asociados correctamente */
+
 label {
     display: block;
     margin-bottom: 4px;
@@ -920,14 +918,14 @@ label {
     color: var(--texto);
 }
 
-/* Mejorar contraste de texto en botones oscuros */
+
 .btn-primary,
 .btn-secondary {
     color: white;
     font-weight: 600;
 }
 
-/* Asegurar que los elementos interactivos tengan tamaño suficiente (min 44x44px) */
+
 button,
 input[type="button"],
 input[type="submit"],
@@ -938,7 +936,7 @@ a.btn {
     padding: 10px 16px;
 }
 
-/* Mejorar atributos de formularios para lectores de pantalla */
+
 input::placeholder,
 textarea::placeholder,
 select option:disabled {
@@ -946,7 +944,7 @@ select option:disabled {
     opacity: 1;
 }
 
-/* Indicadores visuales para estados */
+
 .alert {
     border-left: 4px solid;
 }
@@ -975,7 +973,7 @@ select option:disabled {
     color: #0c5460;
 }
 
-/* Badges con contraste mejorado */
+
 .badge {
     padding: 4px 8px;
     border-radius: 4px;
@@ -1003,7 +1001,7 @@ select option:disabled {
     color: #000;
 }
 
-/* Asegurar legibilidad en tablas */
+
 table {
     border-collapse: collapse;
 }
@@ -1024,7 +1022,7 @@ table tr:nth-child(even) {
     background-color: rgba(244, 246, 250, 0.5);
 }
 
-/* Mejorar visibilidad de enlaces */
+
 a {
     color: var(--naranja);
     text-decoration: underline;
@@ -1042,7 +1040,7 @@ a:active {
     color: var(--azul-principal);
 }
 
-/* Inputs con mejor contraste */
+
 input,
 textarea,
 select {
@@ -1057,9 +1055,9 @@ select:focus {
     background-color: #fffbf5;
 }
 
-/* Dark mode deshabilitado - mantener Light Mode siempre */
 
-/* Reducir movimiento para usuarios sensibles */
+
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
@@ -1069,9 +1067,9 @@ select:focus {
     }
 }
 
-/* ================= ACCESIBILIDAD WCAG AA ================= */
 
-/* Focus visible para navegación por teclado */
+
+
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
@@ -1081,17 +1079,17 @@ textarea:focus-visible {
     outline-offset: 2px;
 }
 
-/* Contraste mejorado para texto */
+
 a {
-    color: #0047ab; /* Azul con mejor contraste */
+    color: #0047ab; 
     text-decoration: underline;
 }
 
 a:visited {
-    color: #6f0066; /* Púrpura oscuro para links visitados */
+    color: #6f0066; 
 }
 
-/* Labels accesibles */
+
 label {
     display: block;
     margin-bottom: 6px;
@@ -1099,7 +1097,7 @@ label {
     color: var(--texto);
 }
 
-/* Inputs con mejor contraste */
+
 input,
 select,
 textarea {
@@ -1115,14 +1113,14 @@ textarea:focus {
     background: var(--blanco);
 }
 
-/* Botones accesibles */
+
 button {
     cursor: pointer;
     border: none;
     font-weight: 600;
     letter-spacing: 0.5px;
     transition: all 0.2s;
-    min-height: 44px; /* WCAG AA: mínimo 44x44px para hit target */
+    min-height: 44px; 
     min-width: 44px;
 }
 
@@ -1139,7 +1137,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Tablas accesibles */
+
 table {
     border-collapse: collapse;
 }
@@ -1161,7 +1159,7 @@ table tbody tr:hover {
     background: var(--fondo);
 }
 
-/* Badges y alertas con contraste */
+
 .badge-success {
     background: #198754;
     color: var(--blanco);
@@ -1182,7 +1180,7 @@ table tbody tr:hover {
     color: var(--texto);
 }
 
-/* Alertas ARIA */
+
 .alert {
     padding: 16px;
     border-left: 4px solid;
@@ -1214,7 +1212,7 @@ table tbody tr:hover {
     color: #055160;
 }
 
-/* Skip to main content link */
+
 .skip-to-main {
     position: absolute;
     top: -40px;
@@ -1230,12 +1228,12 @@ table tbody tr:hover {
     top: 0;
 }
 
-/* Íconos con aria-labels */
+
 [role="img"] {
     display: inline-block;
 }
 
-/* Formularios con mejor espaciado */
+
 .form-group {
     margin-bottom: 16px;
 }
@@ -1247,15 +1245,15 @@ table tbody tr:hover {
     margin-top: 4px;
 }
 
-/* Navegación con landmarks */
+
 header,
 nav,
 main,
 footer {
-    outline: 0; /* No mostrar outlines en landmarks */
+    outline: 0; 
 }
 
-/* Menu con contraste mejorado */
+
 .menu a {
     color: var(--blanco);
     text-decoration: none;
@@ -1273,21 +1271,21 @@ footer {
     outline: 2px solid var(--blanco);
 }
 
-/* Header info con contraste */
+
 .header {
     background: var(--blanco);
     color: var(--texto);
     border-bottom: 1px solid var(--borde);
 }
 
-/* Cards con bordes visibles */
+
 .card {
     border: 1px solid var(--borde);
     border-radius: var(--radio);
     background: var(--blanco);
 }
 
-/* Stat boxes */
+
 .stat {
     background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);
     color: var(--blanco);
@@ -1306,7 +1304,7 @@ footer {
     color: #ffffff;
 }
 
-/* Indicadores visuales mejorados */
+
 .badge {
     display: inline-block;
     font-weight: 600;
@@ -1315,22 +1313,22 @@ footer {
     font-size: 0.85rem;
 }
 
-/* Responsive y Mobile First en accesibilidad */
+
 @media (max-width: 768px) {
-    /* Aumentar tamaños de touch targets */
+    
     button,
     input,
     select,
     textarea {
-        font-size: 16px; /* Evita zoom automático en iOS */
+        font-size: 16px; 
     }
 
-    /* Mejor espaciado en móvil */
+    
     .form-group {
         margin-bottom: 20px;
     }
 
-    /* Tablas apiladas en móvil */
+    
     table {
         font-size: 0.9rem;
     }
@@ -1341,7 +1339,7 @@ footer {
     }
 }
 
-/* Modal Personalizado Profesional */
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1461,7 +1459,7 @@ footer {
     color: var(--texto);
 }
 
-/* Animaciones para el modal */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1482,7 +1480,7 @@ footer {
     }
 }
 
-/* ========== SISTEMA DE TOASTS ========== */
+
 .toast-container {
     position: fixed;
     bottom: 24px;
@@ -1608,7 +1606,7 @@ footer {
     background: var(--amarillo);
 }
 
-/* Animaciones de toast */
+
 @keyframes toastSlideIn {
     from {
         transform: translateX(400px);
@@ -1644,9 +1642,9 @@ footer {
     animation: toastSlideOut 0.3s ease-out forwards;
 }
 
-/* Dark mode deshabilitado - mantener solo Light Mode */
 
-/* Reducir movimiento para usuarios con sensibilidad */
+
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;

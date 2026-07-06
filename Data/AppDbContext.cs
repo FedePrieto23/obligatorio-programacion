@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Obligatorio_Programacion.Entity;
 
 namespace Obligatorio_Programacion.Data
