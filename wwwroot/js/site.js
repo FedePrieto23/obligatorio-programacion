@@ -296,12 +296,12 @@ async function registrarCuenta(event) {
     const nuevoUsuario = {
         nombreUsuario: document.getElementById("registroNombre").value.trim(),
         emailUsuario: document.getElementById("registroEmail").value.trim().toLowerCase(),
-        contraseÃ±a: document.getElementById("registroPassword").value,
+        "contraseña": document.getElementById("registroPassword").value,
         tipoEmpleado: document.getElementById("registroRol").value,
         idOficio: Number(document.getElementById("registroOficio").value)
     };
 
-    if (!nuevoUsuario.nombreUsuario || !nuevoUsuario.emailUsuario || !nuevoUsuario.contraseÃ±a || !nuevoUsuario.idOficio) {
+    if (!nuevoUsuario.nombreUsuario || !nuevoUsuario.emailUsuario || !nuevoUsuario["contraseña"] || !nuevoUsuario.idOficio) {
         return;
     }
 
@@ -311,6 +311,7 @@ async function registrarCuenta(event) {
 
     try {
         const usuarios = await cargarJsonSinSesion(API.usuario);
+
         if (usuarios.some(u => (u.emailUsuario || "").toLowerCase() === nuevoUsuario.emailUsuario)) {
             return;
         }
