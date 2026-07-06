@@ -11,6 +11,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     });
 
 builder.Services.AddOpenApi();
@@ -101,6 +102,19 @@ using (var scope = app.Services.CreateScope())
         };
 
         usuarioService.Add(nuevoAdmin);
+    }
+
+    if (!db.Clientes.Any())
+    {
+        db.Clientes.Add(new Obligatorio_Programacion.Entity.Cliente
+        {
+            NombreCliente = "Cliente",
+            ApellidoCliente = "Prueba",
+            Documento = "12345678",
+            DireccionCliente = "Calle Central 123",
+            EmailCliente = "cliente@test.com"
+        });
+        db.SaveChanges();
     }
 }
 
