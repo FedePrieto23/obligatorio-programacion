@@ -337,9 +337,8 @@ function usuarioSesionDesdeApi(usuario) {
 }
 
 function obtenerContrasenaUsuario(usuario) {
-    return usuario.contraseÃ±a || usuario.contrasena || usuario.password || "";
+    return usuario["contraseña"] || usuario.contrasena || usuario.password || "";
 }
-
 function cerrarSesion() {
     localStorage.removeItem("pagesSesion");
     usuarioSesion = null;
