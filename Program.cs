@@ -5,6 +5,8 @@ using Obligatorio_Programacion.Repository;
 using Obligatorio_Programacion.Service;
 using System.Text.Json.Serialization;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
