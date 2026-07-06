@@ -87,6 +87,21 @@ using (var scope = app.Services.CreateScope())
 
         db.SaveChanges();
     }
+
+    if (!db.Usuarios.Any())
+    {
+        var usuarioService = scope.ServiceProvider.GetRequiredService<UsuarioService>();
+        var nuevoAdmin = new Usuario
+        {
+            NombreUsuario = "Administrador",
+            EmailUsuario = "admin@test.com",
+            Contraseña = "Admin123!", 
+            TipoEmpleado = "Administrador",
+            IdOficio = 1
+        };
+
+        usuarioService.Add(nuevoAdmin);
+    }
 }
 
 if (app.Environment.IsDevelopment())

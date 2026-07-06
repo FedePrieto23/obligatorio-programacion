@@ -40,6 +40,25 @@ namespace Obligatorio_Programacion.Controllers
             return Ok(usuario);
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginRequest loginRequest)
+        {
+            if (string.IsNullOrWhiteSpace(loginRequest.Email) || string.IsNullOrWhiteSpace(loginRequest.Contrasena))
+            {
+                return BadRequest("Email y contraseña son requeridos.");
+            }
+
+            var usuario = _usuarioService.ObtenerTodos()
+                .FirstOrDefault(u => u.EmailUsuario.ToLower() == loginRequest.Email.ToLower());
+
+            if (usuario == null || !_usuarioService.VerifyPassword(loginRequest.Contrasena, usuario.Contraseña))
+            {
+                return Unauthorized("Email o contraseña incorrectos.");
+            }
+
+            return Ok(new { usuario.IdUsuario, usuario.NombreUsuario, usuario.EmailUsuario, usuario.TipoEmpleado, usuario.IdOficio, usuario.Oficio });
+        }
+
         [HttpPost]
         public IActionResult Crear([FromBody] Usuario usuario)
         {

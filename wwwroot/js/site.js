@@ -268,26 +268,25 @@ async function iniciarSesion(event) {
         return;
     }
 
-    try {
-        const usuarios = await cargarJsonSinSesion(API.usuario);
-
-        const usuario = usuarios.find(u => {
-            const emailMatch = (u.emailUsuario || "").toLowerCase() === email;
-            const passwordMatch = obtenerContrasenaUsuario(u) === password;
-            return emailMatch && passwordMatch;
+        try {
+        const respuesta = await fetch(API.usuario + "/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, contrasena: password })
         });
 
-        if (!usuario) {
-            mostrarMensajeLogin("Email o contraseÃ±a incorrectos", "error");
+        if (!respuesta.ok) {
+            mostrarMensajeLogin("Email o contraseña incorrectos", "error");
             return;
         }
 
+        const usuario = await respuesta.json();
         usuarioSesion = usuarioSesionDesdeApi(usuario);
         localStorage.setItem("pagesSesion", JSON.stringify(usuarioSesion));
         await mostrarAplicacion();
     } catch (error) {
         console.error(error);
-        alert("Error al conectar con el servidor");
+        mostrarMensajeLogin("Error al conectar con el servidor", "error");
     }
 }
 
@@ -931,7 +930,8 @@ async function guardarObra(event) {
     };
 
     try {
-        if (!obra.idCliente) {
+        if (!obra.idCliente || obra.idCliente <= 0) {
+            mostrarToast("Debes seleccionar un cliente válido", "error");
             return;
         }
 
@@ -943,7 +943,9 @@ async function guardarObra(event) {
 
         limpiarFormularioObra();
         await cargarTodo();
+        mostrarToast("Obra guardada correctamente", "success");
     } catch (error) {
+        mostrarToast("Error al guardar la obra: " + (error.message || ""), "error");
     }
 }
 
@@ -1450,4 +1452,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filtroAccionAuditoria")?.addEventListener("change", cargarAuditoria);
     document.getElementById("btnRefrescarAuditoria")?.addEventListener("click", cargarAuditoria);
 });
+
 
